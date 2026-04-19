@@ -403,7 +403,7 @@
       </div>
 
       <div id="gap-chart" style="position:relative;height:420px">
-        <canvas id="gapCanvas" role="img" aria-label="Горизонтальная диаграмма разрыва между нуждой и помощью по пяти сферам">Еда: 17.6 млн нуждаются, 40% получат. Здоровье: 13 млн, 46%. Защита: 8 млн, 34%. Питание: 10.5 млн, 43%. Вода: 6.2 млн, 80%. Жильё: 4.1 млн, 45%.</canvas>
+        <canvas id="gapCanvas" role="img" aria-label="Горизонтальная диаграмма разрыва между нуждой и помощью по пяти сферам">Еда: 17.6 млн нуждаются, 40% получат. Здоровье: 13 млн, 46%. Защита: 8 млн, 34%. Питание: 10.5 млн, 43%. Вода: 6.2 млн, 80%. Жилье: 4.1 млн, 45%.</canvas>
       </div>
       <div class="note">Процент — доля нуждающихся, для которых помощь была запланирована в 2025 г. Фактически полученная помощь в данных ООН не фиксируется.</div>
     </section>
@@ -453,7 +453,7 @@
           </div>
         </div>
         <div class="stack-row">
-          <div class="stack-label">Жильё и имущество — 4,1 млн</div>
+          <div class="stack-label">Жилье и имущество — 4,1 млн</div>
           <div class="stack-bar">
             <div class="stack-seg" style="width:56%;background:#F09595;color:#501313">2,3 млн детей</div>
             <div class="stack-seg" style="width:44%;background:#D3D1C7;color:#2C2C2A">1,8 млн взр.</div>
@@ -463,7 +463,7 @@
     </section>
 
     <section class="section">
-<div class="section-title">Кто страдает больше и в чём</div>
+<div class="section-title">Кто страдает больше и в чем</div>
 
       <div class="gender-grid">
         <div class="gender-card">
@@ -568,7 +568,7 @@
     Chart.defaults.font.family = 'Montserrat, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
     Chart.defaults.color = '#5f5e5a';
 
-    const categories = ['Еда','Здоровье','Защита','Питание','Вода','Жильё'];
+    const categories = ['Еда','Здоровье','Защита','Питание','Вода','Жилье'];
     const total = [17.6, 13, 8, 10.5, 6.2, 4.1];
     const pct = [40, 46, 34, 43, 80, 45];
     const helped = total.map((t, i) => Math.round(t * pct[i] / 100 * 10) / 10);
@@ -634,10 +634,10 @@
       { pct: 5,  status: 'Выхожу из дома...', danger: false },
       { pct: 15, status: 'Иду по дороге.', danger: false },
       { pct: 28, status: 'Нашли <span class="danger-word">мину</span> рядом с дорогой.', danger: true, mineIdx: 0 },
-      { pct: 42, status: 'Обхожу осторожно. Ещё один <span class="danger-word">неразорвавшийся снаряд</span>.', danger: true, mineIdx: 1 },
+      { pct: 42, status: 'Обхожу осторожно. Еще один <span class="danger-word">неразорвавшийся снаряд</span>.', danger: true, mineIdx: 1 },
       { pct: 58, status: 'Середина пути. Опасный участок — <span class="danger-word">заминированное поле</span>.', danger: true, mineIdx: 2 },
-      { pct: 72, status: 'Уже видна цель. Но ещё одна <span class="danger-word">граната</span> у обочины.', danger: true, mineIdx: 3 },
-      { pct: 85, status: 'Почти дошёл. Последняя <span class="danger-word">мина</span> на подходе.', danger: true, mineIdx: 4 },
+      { pct: 72, status: 'Уже видна цель. Но еще одна <span class="danger-word">граната</span> у обочины.', danger: true, mineIdx: 3 },
+      { pct: 85, status: 'Почти дошел. Последняя <span class="danger-word">мина</span> на подходе.', danger: true, mineIdx: 4 },
       { pct: 95, status: 'Добрался. Сегодня повезло.', danger: false }
     ];
 
