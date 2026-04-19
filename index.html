@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Congo Crisis Infographics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    :root{
+      --font-sans:"Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --color-background-primary:#fbfbfb;
+      --color-background-secondary:#f2f1ec;
+      --color-border-secondary:#d9d7cf;
+      --color-border-tertiary:#e6e3da;
+      --color-text-primary:#20201d;
+      --color-text-secondary:#5f5e5a;
+      --color-text-tertiary:#888780;
+      --border-radius-md:10px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      background:var(--color-background-primary);
+      color:var(--color-text-primary);
+      font-family:var(--font-sans);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body{padding:36px 20px 56px}
+
+    .page{
+      max-width:980px;
+      margin:0 auto;
+      background:transparent;
+    }
+
+    .section{
+      padding:2rem 0;
+      border-bottom:0.5px solid var(--color-border-tertiary);
+    }
+    .section:last-child{border-bottom:none}
+    .section-label{
+      font-size:11px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--color-text-tertiary);
+      margin-bottom:.75rem;
+    }
+    .section-title{
+      font-size:18px;
+      font-weight:500;
+      color:var(--color-text-primary);
+      margin-bottom:1.5rem;
+      line-height:1.35;
+    }
+
+    .metric-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:10px;
+      margin-bottom:1.5rem;
+    }
+    .metric-card{
+      background:var(--color-background-secondary);
+      border-radius:var(--border-radius-md);
+      padding:1rem;
+      text-align:center;
+    }
+    .metric-num{
+      font-size:24px;
+      font-weight:500;
+      color:var(--color-text-primary);
+    }
+    .metric-sub{
+      font-size:12px;
+      color:var(--color-text-secondary);
+      margin-top:4px;
+      line-height:1.4;
+    }
+
+    .legend-row{
+      display:flex;
+      gap:20px;
+      margin-bottom:1rem;
+      font-size:12px;
+      color:var(--color-text-secondary);
+      flex-wrap:wrap;
+    }
+    .legend-dot{
+      width:10px;
+      height:10px;
+      border-radius:2px;
+      display:inline-block;
+      margin-right:4px;
+      vertical-align:middle;
+    }
+
+    .stack-row{margin-bottom:1rem}
+    .stack-label{
+      font-size:13px;
+      color:var(--color-text-secondary);
+      margin-bottom:5px;
+    }
+    .stack-bar{
+      height:32px;
+      border-radius:4px;
+      display:flex;
+      overflow:hidden;
+    }
+    .stack-seg{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      font-weight:500;
+      transition:all .2s;
+      white-space:nowrap;
+    }
+
+    .gender-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .gender-card{
+      background:var(--color-background-secondary);
+      border-radius:var(--border-radius-md);
+      padding:1rem;
+    }
+    .gender-title{
+      font-size:13px;
+      font-weight:500;
+      color:var(--color-text-primary);
+      margin-bottom:.75rem;
+    }
+    .gender-bar-wrap{margin-bottom:8px}
+    .gender-bar-label{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      font-size:12px;
+      color:var(--color-text-secondary);
+      margin-bottom:3px;
+    }
+    .gender-bar-track{
+      height:20px;
+      background:var(--color-background-primary);
+      border-radius:3px;
+      overflow:hidden;
+      border:0.5px solid var(--color-border-tertiary);
+    }
+    .gender-bar-fill{
+      height:100%;
+      border-radius:3px;
+      display:flex;
+      align-items:center;
+      padding-left:6px;
+      font-size:11px;
+      font-weight:500;
+    }
+
+    .note{
+      font-size:12px;
+      color:var(--color-text-tertiary);
+      margin-top:1rem;
+      line-height:1.5;
+      padding-top:.75rem;
+      border-top:0.5px solid var(--color-border-tertiary);
+    }
+
+    /* Route visualization */
+    .route-block{padding-top:.25rem}
+    .route-big-num{
+      font-size:48px;
+      font-weight:500;
+      color:#A32D2D;
+      line-height:1;
+      margin-bottom:.25rem;
+    }
+    .route-big-label{
+      font-size:14px;
+      color:var(--color-text-secondary);
+      margin-bottom:2rem;
+      line-height:1.5;
+    }
+    .route-wrap{
+      position:relative;
+      margin:2rem 0 1rem;
+    }
+    .route-road{
+      position:relative;
+      height:6px;
+      background:var(--color-background-secondary);
+      border-radius:3px;
+      margin:60px 0 80px;
+    }
+    .route-road-inner{
+      height:100%;
+      border-radius:3px;
+      background:#D3D1C7;
+      width:100%;
+    }
+    .route-endpoint{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      z-index:2;
+    }
+    .route-left{left:0;transform:translate(-50%,-50%)}
+    .route-right{right:0;transform:translate(50%,-50%)}
+    .route-ep-icon{
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      background:var(--color-background-secondary);
+      border:0.5px solid var(--color-border-tertiary);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .route-ep-label{
+      font-size:12px;
+      color:var(--color-text-secondary);
+      white-space:nowrap;
+      text-align:center;
+    }
+    .route-mines-row{
+      position:absolute;
+      top:50%;
+      left:5%;
+      right:5%;
+      transform:translateY(-50%);
+      pointer-events:none;
+    }
+    .route-mine-marker{
+      position:absolute;
+      top:50%;
+      transform:translate(-50%,-50%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:3px;
+    }
+    .route-mine-spike{
+      width:1px;
+      height:18px;
+      background:#E24B4A;
+      opacity:.4;
+      margin-bottom:2px;
+    }
+    .route-mine-dot{
+      width:16px;
+      height:16px;
+      border-radius:50%;
+      border:2px solid #A32D2D;
+      background:#FCEBEB;
+      transition:transform .15s ease, background .15s ease;
+    }
+    .route-mine-dot.active{
+      background:#A32D2D;
+      transform:scale(1.3);
+    }
+    .route-mine-label{
+      font-size:10px;
+      color:#A32D2D;
+      white-space:nowrap;
+      opacity:0;
+      transition:opacity .2s;
+      font-weight:500;
+    }
+    .route-mine-label.show{opacity:1}
+    .route-km-labels{
+      display:flex;
+      justify-content:space-between;
+      padding:0 5%;
+      font-size:11px;
+      color:var(--color-text-tertiary);
+      margin-top:8px;
+    }
+    .route-walker{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      transition:left 1.2s cubic-bezier(.4,0,.2,1);
+      z-index:3;
+      left:5%;
+    }
+    .route-walker-dot{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:#185FA5;
+      border:2px solid #E6F1FB;
+      margin-left:-9px;
+      margin-top:-9px;
+    }
+    .route-walker-dot.danger{
+      background:#A32D2D;
+      border-color:#FCEBEB;
+    }
+    .route-controls{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-top:1.5rem;
+      flex-wrap:wrap;
+    }
+    .route-btn{
+      padding:7px 18px;
+      border-radius:var(--border-radius-md);
+      border:0.5px solid var(--color-border-secondary);
+      background:transparent;
+      font-size:13px;
+      color:var(--color-text-primary);
+      cursor:pointer;
+      transition:background .15s;
+      font-family:var(--font-sans);
+    }
+    .route-btn:hover{background:var(--color-background-secondary)}
+    .route-btn:disabled{opacity:.55;cursor:default}
+    .route-status{
+      font-size:13px;
+      color:var(--color-text-secondary);
+      flex:1;
+      min-width:160px;
+      line-height:1.4;
+    }
+    .route-status .danger-word{color:#A32D2D;font-weight:500}
+    .route-legend{
+      display:flex;
+      gap:20px;
+      margin-top:1.5rem;
+      flex-wrap:wrap;
+    }
+    .route-leg-item{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:12px;
+      color:var(--color-text-secondary);
+    }
+    .route-leg-dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+    }
+
+    @media (max-width: 720px){
+      body{padding:24px 16px 44px}
+      .gender-grid{grid-template-columns:1fr}
+      .route-big-num{font-size:40px}
+      .route-road{margin:74px 0 92px}
+      .section-title{font-size:17px}
+      .stack-seg{font-size:10px}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="section">
+      <div style="display:flex;justify-content:center;gap:56px;flex-wrap:wrap;margin-bottom:1.5rem;align-items:start;text-align:center">
+        <div style="max-width:260px">
+          <div style="font-size:32px;font-weight:500;line-height:1;color:#A32D2D;margin-bottom:6px">21 млн</div>
+          <div style="font-size:13px;line-height:1.55;color:var(--color-text-secondary)">нуждаются в гуманитарной помощи<br>= население Казахстана</div>
+        </div>
+        <div style="max-width:260px">
+          <div style="font-size:32px;font-weight:500;line-height:1;color:#A32D2D;margin-bottom:6px">12 млн</div>
+          <div style="font-size:13px;line-height:1.55;color:var(--color-text-secondary)">детей в состоянии нужды<br>≈ всё население Москвы</div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem">
+        <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem">Сравнение: кто нуждается и кто получил помощь</div>
+        <div style="position:relative;height:60px;margin-bottom:8px">
+          <div style="height:28px;background:#B5D4F4;border-radius:4px;width:100%;position:absolute;top:0;display:flex;align-items:center;padding-left:12px;font-size:12px;color:#0C447C;font-weight:500">21 млн нуждаются</div>
+          <div style="height:28px;background:#378ADD;border-radius:4px;width:43%;position:absolute;bottom:0;display:flex;align-items:center;padding-left:12px;font-size:12px;color:#E6F1FB;font-weight:500">9 млн получили</div>
+        </div>
+        <div style="display:flex;gap:4px;margin-top:2rem">
+          <div style="flex:43;height:8px;background:#378ADD;border-radius:2px 0 0 2px"></div>
+          <div style="flex:57;height:8px;background:#F7C1C1;border-radius:0 2px 2px 0"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-text-tertiary);margin-top:4px">
+          <span style="color:#185FA5">получили помощь 43%</span>
+          <span style="color:#A32D2D">без помощи 57%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+<div class="section-title">По каждой сфере: сколько нуждаются vs. сколько охвачено планом</div>
+
+      <div class="legend-row">
+        <span><span class="legend-dot" style="background:#B5D4F4"></span>нуждаются (млн чел.)</span>
+        <span><span class="legend-dot" style="background:#378ADD"></span>охвачено планом помощи</span>
+      </div>
+
+      <div id="gap-chart" style="position:relative;height:320px">
+        <canvas id="gapCanvas" role="img" aria-label="Горизонтальная диаграмма разрыва между нуждой и помощью по пяти сферам">Еда: 17.6 млн нуждаются, 40% получат. Здоровье: 13 млн, 46%. Защита: 8 млн, 34%. Питание: 10.5 млн, 43%. Вода: 6.2 млн, 80%. Жильё: 4.1 млн, 45%.</canvas>
+      </div>
+      <div class="note">Процент — доля нуждающихся, для которых помощь была запланирована в 2025 г. Фактически полученная помощь в данных ООН не фиксируется.</div>
+    </section>
+
+    <section class="section">
+<div class="section-title">Дети — большинство нуждающихся в каждой сфере</div>
+
+      <div class="legend-row">
+        <span><span class="legend-dot" style="background:#E24B4A"></span>дети</span>
+        <span><span class="legend-dot" style="background:#888780"></span>взрослые и пожилые</span>
+      </div>
+
+      <div id="stack-rows">
+        <div class="stack-row">
+          <div class="stack-label">Продовольствие — 17,6 млн</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:57%;background:#F09595;color:#501313">10,1 млн детей</div>
+            <div class="stack-seg" style="width:43%;background:#D3D1C7;color:#2C2C2A">7 млн взр.</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">Здравоохранение — 13 млн</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:56%;background:#F09595;color:#501313">7,3 млн детей</div>
+            <div class="stack-seg" style="width:44%;background:#D3D1C7;color:#2C2C2A">5,7 млн взр.</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">Питание — 10,5 млн</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:38%;background:#F09595;color:#501313">4 млн детей</div>
+            <div class="stack-seg" style="width:62%;background:#D3D1C7;color:#2C2C2A">6,5 млн взр.</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">Вода и санитария — 6,2 млн</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:55%;background:#F09595;color:#501313">3,4 млн детей</div>
+            <div class="stack-seg" style="width:45%;background:#D3D1C7;color:#2C2C2A">2,8 млн взр.</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">Защита — 8 млн</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:58%;background:#F09595;color:#501313">4,6 млн детей</div>
+            <div class="stack-seg" style="width:42%;background:#D3D1C7;color:#2C2C2A">3,4 млн взр.</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-label">Жильё и имущество — 4,1 млн</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:56%;background:#F09595;color:#501313">2,3 млн детей</div>
+            <div class="stack-seg" style="width:44%;background:#D3D1C7;color:#2C2C2A">1,8 млн взр.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+<div class="section-title">Кто страдает больше и в чём</div>
+
+      <div class="gender-grid">
+        <div class="gender-card">
+          <div class="gender-title">Питание и недоедание</div>
+          <div class="gender-bar-wrap">
+            <div class="gender-bar-label"><span>Женщины и девочки</span><span>4,5 млн</span></div>
+            <div class="gender-bar-track"><div class="gender-bar-fill" style="width:78%;background:#F4C0D1;color:#4B1528">4,5 млн</div></div>
+          </div>
+          <div class="gender-bar-wrap">
+            <div class="gender-bar-label"><span>Дети (отдельно)</span><span>4 млн</span></div>
+            <div class="gender-bar-track"><div class="gender-bar-fill" style="width:69%;background:#F09595;color:#501313">4 млн</div></div>
+          </div>
+          <div class="gender-bar-wrap">
+            <div class="gender-bar-label"><span>Мужчины</span><span>~2 млн</span></div>
+            <div class="gender-bar-track"><div class="gender-bar-fill" style="width:35%;background:#B4B2A9;color:#2C2C2A">~2 млн</div></div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:8px">Беременные и кормящие — особо уязвимая группа</div>
+        </div>
+
+        <div class="gender-card">
+          <div class="gender-title">Гендерное насилие — неожиданный факт</div>
+          <div class="gender-bar-wrap">
+            <div class="gender-bar-label"><span>Мужчины и мальчики</span><span>3,7 млн</span></div>
+            <div class="gender-bar-track"><div class="gender-bar-fill" style="width:100%;background:#B5D4F4;color:#042C53">3,7 млн</div></div>
+          </div>
+          <div class="gender-bar-wrap">
+            <div class="gender-bar-label"><span>Дети</span><span>3 млн</span></div>
+            <div class="gender-bar-track"><div class="gender-bar-fill" style="width:81%;background:#F09595;color:#501313">3 млн</div></div>
+          </div>
+          <div class="gender-bar-wrap">
+            <div class="gender-bar-label"><span>Женщины</span><span>2,5 млн</span></div>
+            <div class="gender-bar-track"><div class="gender-bar-fill" style="width:68%;background:#F4C0D1;color:#4B1528">2,5 млн</div></div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:8px">Мужчин в группе риска больше — вопреки ожиданиям</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+<div class="section-title">2,4 млн человек рискуют подорваться по дороге в школу</div>
+
+      <div class="route-block">
+        <div class="route-big-num">2 400 000</div>
+        <div class="route-big-label">конголезцев живут в зонах минной угрозы.<br>Добраться до школы или больницы — уже риск.</div>
+
+        <div class="route-wrap">
+          <div class="route-road">
+            <div class="route-road-inner"></div>
+            <div class="route-mines-row" id="routeMinesRow"></div>
+
+            <div class="route-walker" id="routeWalker">
+              <div class="route-walker-dot" id="routeWalkerDot"></div>
+            </div>
+
+            <div class="route-endpoint route-left">
+              <div class="route-ep-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="1.5" aria-hidden="true">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </div>
+              <div class="route-ep-label">дом</div>
+            </div>
+
+            <div class="route-endpoint route-right">
+              <div class="route-ep-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="1.5" aria-hidden="true">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </div>
+              <div class="route-ep-label">школа / больница</div>
+            </div>
+          </div>
+
+          <div class="route-km-labels">
+            <span>0 км</span>
+            <span>1 км</span>
+            <span>2 км</span>
+            <span>3 км</span>
+            <span>4 км</span>
+          </div>
+        </div>
+
+        <div class="route-controls">
+          <button class="route-btn" id="routeWalkBtn" type="button">Начать путь</button>
+          <button class="route-btn" id="routeResetBtn" type="button">Сбросить</button>
+          <div class="route-status" id="routeStatus">Нажмите «Начать путь», чтобы пройти маршрут</div>
+        </div>
+
+        <div class="route-legend">
+          <div class="route-leg-item"><div class="route-leg-dot" style="background:#185FA5"></div>человек</div>
+          <div class="route-leg-item"><div class="route-leg-dot" style="background:#A32D2D;border:2px solid #E24B4A"></div>мина / боеприпас</div>
+        </div>
+
+        <div class="note">Война сконцентрирована на востоке Конго, но мины и неразорвавшиеся боеприпасы остаются в земле годами после отхода войск. Люди подрываются по дороге на поле, в школу, за водой.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    Chart.defaults.font.family = 'Montserrat, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    Chart.defaults.color = '#5f5e5a';
+
+    const categories = ['Еда','Здоровье','Защита','Питание','Вода','Жильё'];
+    const total = [17.6, 13, 8, 10.5, 6.2, 4.1];
+    const pct = [40, 46, 34, 43, 80, 45];
+    const helped = total.map((t, i) => Math.round(t * pct[i] / 100 * 10) / 10);
+
+    new Chart(document.getElementById('gapCanvas'), {
+      type: 'bar',
+      data: {
+        labels: categories,
+        datasets: [
+          {
+            label: 'Нуждаются (млн)',
+            data: total,
+            backgroundColor: '#B5D4F4',
+            borderRadius: 3
+          },
+          {
+            label: 'Охвачено планом (млн)',
+            data: helped,
+            backgroundColor: '#378ADD',
+            borderRadius: 3
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                const i = ctx.dataIndex;
+                if (ctx.datasetIndex === 0) return ctx.raw + ' млн нуждаются';
+                return ctx.raw + ' млн (' + pct[i] + '% охвачено)';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(128,128,128,0.1)' },
+            ticks: {
+              color: '#888780',
+              callback: v => v + ' млн',
+              font: { size: 11 }
+            }
+          },
+          y: {
+            grid: { display: false },
+            ticks: {
+              color: '#5f5e5a',
+              font: { size: 12 }
+            }
+          }
+        }
+      }
+    });
+
+    const minePositions = [18, 34, 52, 68, 82];
+    const mineLabels = ['мина', 'снаряд', 'мина', 'граната', 'мина'];
+    const routeSteps = [
+      { pct: 5,  status: 'Выхожу из дома...', danger: false },
+      { pct: 15, status: 'Иду по дороге.', danger: false },
+      { pct: 28, status: 'Нашли <span class="danger-word">мину</span> рядом с дорогой.', danger: true, mineIdx: 0 },
+      { pct: 42, status: 'Обхожу осторожно. Ещё один <span class="danger-word">неразорвавшийся снаряд</span>.', danger: true, mineIdx: 1 },
+      { pct: 58, status: 'Середина пути. Опасный участок — <span class="danger-word">заминированное поле</span>.', danger: true, mineIdx: 2 },
+      { pct: 72, status: 'Уже видна цель. Но ещё одна <span class="danger-word">граната</span> у обочины.', danger: true, mineIdx: 3 },
+      { pct: 85, status: 'Почти дошёл. Последняя <span class="danger-word">мина</span> на подходе.', danger: true, mineIdx: 4 },
+      { pct: 95, status: 'Добрался. Сегодня повезло.', danger: false }
+    ];
+
+    const minesRow = document.getElementById('routeMinesRow');
+    const walker = document.getElementById('routeWalker');
+    const walkerDot = document.getElementById('routeWalkerDot');
+    const statusText = document.getElementById('routeStatus');
+    const walkBtn = document.getElementById('routeWalkBtn');
+    const resetBtn = document.getElementById('routeResetBtn');
+
+    let walking = false;
+    let currentStep = 0;
+
+    minePositions.forEach((pos, i) => {
+      const marker = document.createElement('div');
+      marker.className = 'route-mine-marker';
+      marker.style.left = pos + '%';
+      marker.innerHTML = `
+        <div class="route-mine-spike"></div>
+        <div class="route-mine-dot" id="routeDot${i}"></div>
+        <div class="route-mine-label" id="routeLbl${i}">${mineLabels[i]}</div>
+      `;
+      minesRow.appendChild(marker);
+    });
+
+    function routeNextStep() {
+      if (currentStep >= routeSteps.length) {
+        walking = false;
+        return;
+      }
+
+      const step = routeSteps[currentStep];
+      walker.style.left = step.pct + '%';
+      statusText.innerHTML = step.status;
+
+      if (step.danger && step.mineIdx !== undefined) {
+        walkerDot.classList.add('danger');
+        const mineDot = document.getElementById('routeDot' + step.mineIdx);
+        const label = document.getElementById('routeLbl' + step.mineIdx);
+        if (mineDot) mineDot.classList.add('active');
+        if (label) label.classList.add('show');
+      } else {
+        walkerDot.classList.remove('danger');
+      }
+
+      currentStep++;
+      if (currentStep < routeSteps.length) {
+        setTimeout(routeNextStep, 1400);
+      } else {
+        walking = false;
+      }
+    }
+
+    function routeStartWalk() {
+      if (walking) return;
+      walking = true;
+      walkBtn.disabled = true;
+      currentStep = 0;
+      routeNextStep();
+    }
+
+    function routeReset() {
+      walking = false;
+      currentStep = 0;
+      walker.style.transition = 'none';
+      walker.style.left = '5%';
+      setTimeout(() => {
+        walker.style.transition = 'left 1.2s cubic-bezier(.4,0,.2,1)';
+      }, 50);
+      walkerDot.classList.remove('danger');
+      statusText.textContent = 'Нажмите «Начать путь», чтобы пройти маршрут';
+      walkBtn.disabled = false;
+
+      minePositions.forEach((_, i) => {
+        const dot = document.getElementById('routeDot' + i);
+        const label = document.getElementById('routeLbl' + i);
+        if (dot) dot.classList.remove('active');
+        if (label) label.classList.remove('show');
+      });
+    }
+
+    walkBtn.addEventListener('click', routeStartWalk);
+    resetBtn.addEventListener('click', routeReset);
+  </script>
+</body>
+</html>
