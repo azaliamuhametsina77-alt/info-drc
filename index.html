@@ -236,13 +236,13 @@
       <div class="chart-wrap" id="gapChartWrap">
         <canvas id="gapCanvas" role="img" aria-label="Горизонтальная диаграмма разрыва между нуждой и плановым охватом помощи по секторам"></canvas>
       </div>
-      <div class="term-explainer">
-        <div class="term-explainer-title">Как читать категории на графике</div>
-        <p><strong>Продовольствие</strong> — это вопрос о том, хватает ли людям еды вообще.</p>
-        <p><strong>Питание</strong> — это вопрос о том, получает ли организм достаточно питательных веществ и не приводит ли рацион к недоеданию.</p>
-        <p><strong>Защита</strong> — это защита не только от смерти, но и от физического и сексуализированного насилия, похищения, преследования, эксплуатации, разлучения с домом и семьей и других угроз.</p>
+      <div class="note">Процент — доля людей в состоянии нужды, для которых помощь была предусмотрена гуманитарным планом на 2025 год. В открытых данных ООН зафиксирован плановый охват, а не фактически полученная помощь.
+        <div style="margin-top:14px">
+          <p><strong>Продовольствие</strong> — это вопрос о том, хватает ли людям еды вообще.</p>
+          <p style="margin-top:10px"><strong>Питание</strong> — это вопрос о том, получает ли организм достаточно питательных веществ и не приводит ли рацион к недоеданию.</p>
+          <p style="margin-top:10px"><strong>Защита</strong> — это защита не только от смерти, но и от физического и сексуализированного насилия, похищения, преследования, эксплуатации, разлучения с домом и семьей и других угроз.</p>
+        </div>
       </div>
-      <div class="note">Процент — доля людей в состоянии нужды, для которых помощь была предусмотрена гуманитарным планом на 2025 год. В открытых данных ООН зафиксирован плановый охват, а не фактически полученная помощь.</div>
     </section>
 
     <section class="section reveal">
@@ -288,10 +288,10 @@
           </div>
         </div>
         <div class="stack-row">
-          <div class="stack-label">Жильё и предметы быта — 4,1 млн</div>
+          <div class="stack-label">Жилье и предметы быта — 4,1 млн</div>
           <div class="stack-bar">
             <div class="stack-seg" style="width:57%;background:var(--color-pink);color:#501313">2,3 млн</div>
-            <div class="stack-seg" style="width:43%;background:var(--color-sand);color:#2C2C2A">1,8 млн</div>
+            <div class="stack-seg" style="width:43%;background:var(--color-sand);color:#2C2C2A">1,75 млн</div>
           </div>
         </div>
       </div>
@@ -314,7 +314,6 @@
             <div class="gender-bar-label"><span>Мужчины и мальчики</span><span>2 млн</span></div>
             <div class="gender-bar-track"><div class="gender-bar-fill" style="width:44%;background:#B4B2A9;color:#2C2C2A">2 млн</div></div>
           </div>
-          <div style="font-size:18px;color:var(--color-text-tertiary);margin-top:12px">Особенно уязвимы беременные и кормящие женщины.</div>
         </div>
 
         <div class="gender-card">
@@ -324,14 +323,9 @@
             <div class="gender-bar-track"><div class="gender-bar-fill" style="width:100%;background:var(--color-blue-soft);color:#042C53">3,7 млн</div></div>
           </div>
           <div class="gender-bar-wrap">
-            <div class="gender-bar-label"><span>Дети</span><span>3 млн</span></div>
-            <div class="gender-bar-track"><div class="gender-bar-fill" style="width:81%;background:var(--color-pink);color:#501313">3 млн</div></div>
-          </div>
-          <div class="gender-bar-wrap">
             <div class="gender-bar-label"><span>Женщины</span><span>2,5 млн</span></div>
             <div class="gender-bar-track"><div class="gender-bar-fill" style="width:68%;background:var(--color-pink-soft);color:#4B1528">2,5 млн</div></div>
           </div>
-          <div style="font-size:18px;color:var(--color-text-tertiary);margin-top:12px">Категории здесь пересекаются: дети входят в более широкие группы по полу.</div>
         </div>
       </div>
     </section>
@@ -397,8 +391,6 @@
           <div class="route-leg-item"><div class="route-leg-dot" style="background:#A32D2D;border:2px solid #A32D2D"></div>мина / боеприпас</div>
         </div>
 
-        <div class="note">Война сконцентрирована на востоке Конго, но мины и неразорвавшиеся боеприпасы остаются в земле годами после отхода войск. Люди подрываются по дороге на поле, в школу и за водой.</div>
-      </div>
     </section>
   </main>
 
@@ -406,16 +398,24 @@
     Chart.defaults.font.family = 'Montserrat, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
     Chart.defaults.color = '#5f5e5a';
 
-    const sectorLabels = ['Продовольствие','Здравоохранение','Защита','Питание','Вода и санитария','Жильё','Образование'];
-    const inNeed = [17.6, 12.9, 7.9, 6.5, 6.2, 4.1, 1.9];
-    const planned = [7.3, 6.0, 2.7, 2.9, 5.0, 1.8, 0.7];
-    const pct = [42, 46, 35, 45, 80, 45, 35];
+    const sectorLabels = ['Продовольствие','Здравоохранение','Защита','Питание','Вода и санитария','Жилье и предметы быта','Образование'];
+    const inNeed = [17.6, 12.9, 7.9, 6.5, 6.2, 4, 1.9];
+    const planned = [7.3, 6.0, 2.7, 2.9, 5.0, 1.8, 0.65];
+    const pct = [41.5, 46.5, 34, 45, 80, 45, 34];
 
     function formatMillion(value){
+      if (value < 1) {
+        return value.toFixed(2).replace('.', ',');
+      }
+
       const rounded = Math.round(value * 10) / 10;
-      if (Math.abs(rounded - Math.round(rounded)) < 0.05) return String(Math.round(rounded));
+      if (Math.abs(rounded - Math.round(rounded)) < 0.05) {
+        return String(Math.round(rounded));
+      }
+
       return rounded.toFixed(1).replace('.', ',');
     }
+
 
     function getOrCreateTooltip(chart){
       let tooltipEl = chart.canvas.parentNode.querySelector('.chartjs-ext-tooltip');
